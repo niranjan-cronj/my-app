@@ -3,26 +3,19 @@ import CytoscapeComponent from "react-cytoscapejs";
 
 function Graph({ graph_props, cyRef }) {
   const elements = graph_props.elements ? graph_props.elements : [];
-  const styles = graph_props.style ? graph_props.style : [];
   const stylesheet = graph_props.stylesheet ? graph_props.stylesheet : [];
+  const layout = graph_props.layout ? graph_props.layout : { name: "random" };
+  const node_listener = graph_props.node_listener
+    ? graph_props.node_listener
+    : false;
+  const edge_listener = graph_props.edge_listener
+    ? graph_props.edge_listener
+    : false;
 
-  //   const elements = [
-  //       { data: { id: "one", label: "Node 1" }, position: { x: 0, y: 0 } },
-  //       { data: { id: "two", label: "Node 2" }, position: { x: 100, y: 0 } },
-  //       {
-  //         data: {
-  //           source: "one",
-  //           target: "two",
-  //           label: "Edge from Node1 to Node2",
-  //         },
-  //       },
-  //     ];
+    console.log("node_listener is ===> ", node_listener);
+    console.log("edge_listener is ===> ", edge_listener);
 
-  const layout = {
-    name: "grid",
-    rows: 2, // Number of rows
-    cols: 4, // Number of columns
-  };
+  console.log("layout ==> ", layout);
 
   return (
     <CytoscapeComponent
@@ -32,6 +25,8 @@ function Graph({ graph_props, cyRef }) {
       layout={layout}
       cy={(cy) => {
         cyRef.current = cy;
+        if (node_listener) cy.on("click", "node", node_listener);
+        if (edge_listener) cy.on("click", "edge", edge_listener);
       }}
     />
   );

@@ -1,12 +1,11 @@
 const { node_style, edge_style } = require("../utils/node_edge_conf").default;
 
 let elements = [];
-
 const layout = {
   name: "grid",
 };
 
-for (let i = 1; i <= 1000; i++) {
+for (let i = 1; i <= 5000; i++) {
   elements.push({
     data: {
       id: "node_" + i,
@@ -37,7 +36,7 @@ for (let i = 1; i <= 1000; i++) {
 }
 
 export default {
-  elements,
+  elements: elements,
   stylesheet: [node_style, edge_style],
   layout,
 };
